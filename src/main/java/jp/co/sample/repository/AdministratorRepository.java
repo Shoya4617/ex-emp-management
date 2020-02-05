@@ -11,8 +11,9 @@ import org.springframework.stereotype.Repository;
 import jp.co.sample.domain.Administrator;
 
 /**
+ * 管理者用リポジトリ.
+ * 
  * @author yamaseki
- * 管理者リポジトリ
  */
 @Repository
 public class AdministratorRepository {
@@ -30,19 +31,19 @@ public class AdministratorRepository {
 	
 	/*
 	 * insertメソッド
+	 * データベースに管理者情報を挿入するためのメソッド
 	 * @param administratorクラス
 	 */
 	public void insert(Administrator administrator) {
-		//データベースに管理者情報を挿入するためのメソッド
 		String sql="INSERT INTO Administrators(name,mail_address,password)"+"VALUES(:name,:mailAddress,:password)";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(administrator);
 		template.update(sql, param);		
 	}
 	
-	/*
-	 * findByMailAddressAndPasswordメソッド
-	 * @param administratorクラス
-	 * @return Administrator
+	/* findByMailAddressAndPasswordメソッド.
+	 * メールアドレスとパスワードで管理者情報を検索するメソッド
+	 * @param 管理者クラス
+	 * @return 管理者情報
 	 */ 
 	public Administrator findByMailAddressAndPassword(String mailAddress,String password) {
 		//メールアドレスとパスワードでユーザー検索をするメソッド
