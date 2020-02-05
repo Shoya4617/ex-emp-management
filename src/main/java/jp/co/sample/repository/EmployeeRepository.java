@@ -12,11 +12,16 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.sample.domain.Employee;
 
+/**
+ * @author yamaseki
+ * 従業員リポジトリ
+ */
 @Repository
 public class EmployeeRepository {
 	
 	@Autowired
 	private NamedParameterJdbcTemplate template;
+	
 	
 	private static final RowMapper<Employee>EMP_ROW_MAPPER = (rs,i) -> {
 		Employee emp = new Employee();
@@ -35,12 +40,23 @@ public class EmployeeRepository {
 		return emp;
 	};
 	
+	/*
+	 * findAllメソッド
+	 * 従業員情報を一覧で出力するメソッド
+	 * @return List<Employee>
+	 */
 	public List<Employee> findAll(){
 		String sql = "select id,name,image,gende,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count from employees"; 
 		List<Employee>empList = template.query(sql, EMP_ROW_MAPPER);
 		return empList;
 	}
 	
+	/*
+	 * loadメソッド
+	 * 従業員情報をidを元に一件出力するメソッド
+	 * @return Employee
+	 * @param Integer id
+	 */
 	public Employee load(Integer id) {
 		String sql = "select id,name,image,gende,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count from employees where id=:id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
@@ -50,6 +66,12 @@ public class EmployeeRepository {
 		return emp;
 	}
 	
+	/*
+	 * updateメソッド
+	 * 従業員情報を更新するメソッド
+	 * 今回は扶養人数だけの更新
+	 * @param Employee
+	 */
 	public void update(Employee employee) {
 		String sql = "update employees set dependents_count = :dependentCount";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(employee);

@@ -1,9 +1,15 @@
 package jp.co.sample.form;
 
+/**
+ * @author yamaseki
+ * 管理者情報をフォームから受け取るフォームクラス
+ */
 public class InsertAdministratorForm {
-	
+	//管理者名
 	private String name;
+	//メールアドレス
 	private String mailAddress;
+	//パスワード
 	private String password;
 	
 	public String getName() {
