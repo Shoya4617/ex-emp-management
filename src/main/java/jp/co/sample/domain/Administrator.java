@@ -14,6 +14,21 @@ public class Administrator {
 	//管理者のログインパスワード
 	private String password;
 	
+	
+	//引数なしのコンストラクタ
+	public Administrator() {
+
+	}
+	
+	public Administrator(Integer id, String name, String mailAddress, String password) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.mailAddress = mailAddress;
+		this.password = password;
+	}
+
+
 	public Integer getId() {
 		return id;
 	}
