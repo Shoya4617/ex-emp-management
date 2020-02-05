@@ -22,4 +22,9 @@ public class AdministratorService {
 	public void insert(Administrator administrator) {
 		repository.insert(administrator);
 	}
+	
+	public Administrator login(String mailAddress,String password) {
+		Administrator admin = repository.findByMailAddressAndPassword(mailAddress, password);
+		return admin;
+	}
 }

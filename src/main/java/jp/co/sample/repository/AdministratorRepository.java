@@ -49,7 +49,11 @@ public class AdministratorRepository {
 		//メールアドレスとパスワードでユーザー検索をするメソッド
 		String sql = "select id,name,mail_address,password from administrators where mail_address=:mailAddress,password=:password";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress).addValue("password", password);
-		Administrator admin = template.queryForObject(sql, param, ADMIN_ROW_MAPPER);
-		return admin;
+		try{
+			Administrator admin = template.queryForObject(sql, param, ADMIN_ROW_MAPPER);
+			return admin;
+		}catch(Exception e){
+			return null;
+		}
 	}
 }
