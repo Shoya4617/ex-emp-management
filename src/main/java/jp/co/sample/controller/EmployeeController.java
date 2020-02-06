@@ -2,6 +2,8 @@ package jp.co.sample.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,9 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService service;
 	
+	@Autowired
+	private HttpSession session;
+	
 	@ModelAttribute
 	public UpdateEmployeeForm setUpUpdateForm() {
 		return new UpdateEmployeeForm();
@@ -31,6 +36,9 @@ public class EmployeeController {
 	 */
 	@RequestMapping("/showList")
 	public String showList(Model model) {
+		if(session.getAttribute("admin")==null) {
+			return "forward:/";
+		}
 		//EmployeeServiceのshowListメソッドを呼び出し従業員一覧を受け取る
 		List<Employee>employeeList = service.showList();
 		model.addAttribute("employeeList",employeeList);
@@ -42,10 +50,23 @@ public class EmployeeController {
 	 */
 	@RequestMapping("/showDetail")
 	public String showDetail(String id,Model model) {
+		if(session.getAttribute("admin")==null) {
+			return "forward:/";
+		}
 		Integer intId = Integer.parseInt(id);
 		Employee emp = service.showDetail(intId);
 		model.addAttribute("employee",emp);
+		session.setAttribute("employee",emp);
 		return "employee/detail.html";
+	}
+	
+	@RequestMapping("/toUpdate")
+	public String toUpdate(Model model) {
+		if(session.getAttribute("admin")==null) {
+			return "forward:/";
+		}
+		model.addAttribute("employee",session.getAttribute("employee"));
+		return "employee/updatedetail";
 	}
 	
 	/*
@@ -53,20 +74,33 @@ public class EmployeeController {
 	 */
 	@RequestMapping("/update")
 	public String update(@Validated UpdateEmployeeForm form,BindingResult result,Model model) {
+		if(session.getAttribute("admin")==null) {
+			return "forward:/";
+		}
+		
 		if(result.hasErrors()) {
-			return showDetail(form.getId(), model);
+			return toUpdate(model);
 		}
 		Employee employee = new Employee();
 		
 		//formから受け取ったidとDependentCountをemployee型に合うようにInteger型にパースする
 		Integer intId = Integer.parseInt(form.getId());
 		Integer intDepend = Integer.parseInt(form.getDependentCount());
-		employee.setId(intId);
-		employee.setDependentCount(intDepend);
+		Integer intSalary = Integer.parseInt(form.getSalary());
 		
+		employee.setId(intId);
+		employee.setCharacteristics(form.getCharacteristics());
+		employee.setSalary(intSalary);
+		employee.setDependentCount(intDepend);
+		employee.setTelephone(form.getTelephone());
+		employee.setAddress(form.getAddress());
+		employee.setZipCode(form.getZipCode());
+		employee.setMailAddress(form.getMailAddress());
+		employee.setGender(form.getGender());
+		employee.setName(form.getName());
 		
 		service.update(employee);
-		return "redirect:/employee/showList";
+		return "redirect:/employee/showDetail?id="+employee.getId();
 	}
 	
 }

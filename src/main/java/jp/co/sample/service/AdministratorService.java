@@ -28,4 +28,8 @@ public class AdministratorService {
 		Administrator admin = repository.findByMailAddressAndPassword(mailAddress, password);
 		return admin;
 	}
+	
+	public void update(Administrator admin) {
+		repository.update(admin);
+	}
 }

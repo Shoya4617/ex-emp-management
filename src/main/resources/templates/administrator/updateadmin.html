@@ -38,7 +38,7 @@
 						<li class="active"><a href="list.html" th:href="@{/employee/showList}">従業員管理</a></li>
 					</ul>
 					<p class="navbar-text navbar-right">
-						<a href="" th:href="@{/adminDetail}"><span th:text="${session.administratorName + 'さん'}">山田さん</span></a>こんにちは！
+						<span th:text="${session.administratorName + 'さん'}">山田さん</span>こんにちは！
 						&nbsp;&nbsp;&nbsp;
 						<a href="../administrator/login.html" class="navbar-link" th:href="@{/logout}">ログアウト</a>
 					</p>
@@ -49,10 +49,10 @@
 		</nav>
 
 		<!-- パンくずリスト -->
-		<ol class="breadcrumb">
+<!-- 		<ol class="breadcrumb">
 			<li><a href="list.html" th:href="@{/employee/showList}">従業員リスト</a></li>
-			<li class="active">従業員詳細</li>
-		</ol>
+			<li class="active">詳細</li>
+		</ol> -->
 		
 		<!-- register form -->
 		<div class="row">
@@ -65,39 +65,17 @@
 <!-- ここから上を編集する必要はありません -->
 
 <!-- ここにモックのform要素を貼り付けます -->
+<form th:action="@{/updateAdmin}" method="post" th:object="${updateAdminForm}">
 						<fieldset>
-							<legend>従業員情報</legend>
+							<legend>管理者情報</legend>
 							<table class="table table-striped">
 							  <tr>
 							    <th nowrap>
-							      従業員名
+							      管理者名
 							    </th>
 							    <td>
-							     <span th:text="${session.employee.name}">山田花子</span>
-							    </td>
-							  </tr>
-							  <tr>
-							    <th nowrap>
-							      写真
-							    </th>
-							    <td>
-							      <img th:src="'/img/' + ${session.employee.img}">
-							    </td>
-							  </tr>
-							  <tr>
-							    <th nowrap>
-							      性別
-							    </th>
-							    <td>
-							      <span th:text="${session.employee.gender}">女性</span>
-							    </td>
-							  </tr>
-							  <tr>
-							    <th nowrap>
-							      入社日
-							    </th>
-							    <td>
-							      <span th:text="${session.employee.hireDate}">2012/11/29</span>
+							    <div th:errors="*{name}" style=color:red></div>
+							     <input type="text" name="name" th:field="${admin.name}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -105,62 +83,23 @@
 							      メールアドレス
 							    </th>
 							    <td>
-							      <span>yamada@sample.com</span>
+							    <div th:errors="*{mailAddress}" style=color:red></div>
+							      <input type="text" name="mailAddress" th:field="${admin.mailAddress}">
 							    </td>
 							  </tr>
 							  <tr>
 							    <th nowrap>
-							      郵便番号
+							      パスワード
 							    </th>
 							    <td>
-							      <span th:text="${session.employee.zipCode}">111-1111</span>
-							    </td>
-							  </tr>
-							  <tr>
-							    <th nowrap>
-							      住所
-							    </th>
-							    <td>
-							      <span th:text="${session.employee.address}">東京都新宿区1-1-1</span>
-							    </td>
-							  </tr>
-							  <tr>
-							    <th nowrap>
-							      電話番号
-							    </th>
-							    <td>
-							      <span th:text="${session.employee.telephone}">090-0000-0000</span>
-							    </td>
-							  </tr>
-							  <tr>
-							    <th nowrap>
-							      給料
-							    </th>
-							    <td>
-									<span th:text="${session.employee.salary}"></span>
-							    </td>
-							  </tr>
-							  <tr>
-							    <th nowrap>
-							      特性
-							    </th>
-							    <td>
- 							    	<span th:text="${session.employee.characteristics}"></span>
- 							    </td>
-							  </tr>
-							  <tr>
-							    <th nowrap>
-							      扶養人数
-							    </th>
-							    <td>
-									<label style="color: red" for="dependentsCount"></label>
-									<span id="dependentsCount"   th:text="${session.employee.dependentCount}">/</span>
+							    <div th:errors="*{password}" style=color:red></div>
+							      <input type="text" name="password" th:field="${admin.password}">
 							    </td>
 							  </tr>
 							</table>
-							<a th:href="@{/employee/toUpdate}">従業員情報を更新する</a>
+							<button class="btn btn-primary">更新</button>
 						</fieldset>
-
+</form>
 					
 <!-- ここから下を編集する必要はありません -->
 				</div>

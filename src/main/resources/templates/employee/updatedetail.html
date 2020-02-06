@@ -65,6 +65,7 @@
 <!-- ここから上を編集する必要はありません -->
 
 <!-- ここにモックのform要素を貼り付けます -->
+<form method="post" action="list.html" th:action="@{/employee/update}" th:object="${updateEmployeeForm}">
 						<fieldset>
 							<legend>従業員情報</legend>
 							<table class="table table-striped">
@@ -73,7 +74,8 @@
 							      従業員名
 							    </th>
 							    <td>
-							     <span th:text="${session.employee.name}">山田花子</span>
+									<div th:errors="*{name}" style=color:red></div>
+									<input type="text" name="name" id="dependentsCount" class="form-control" th:field="${employee.name}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -81,7 +83,7 @@
 							      写真
 							    </th>
 							    <td>
-							      <img th:src="'/img/' + ${session.employee.img}">
+							      <img th:src="'/img/' + ${employee.img}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -89,7 +91,9 @@
 							      性別
 							    </th>
 							    <td>
-							      <span th:text="${session.employee.gender}">女性</span>
+									<div th:errors="*{gender}" style=color:red></div>
+									<input type="radio" name="gender" th:value="${'男性'}" id="dependentsCount"  th:field="${employee.gender}">男性 &emsp;
+									<input type="radio" name="gender" th:value="${'女性'}" id="dependentsCount" th:field="${employee.gender}">女性
 							    </td>
 							  </tr>
 							  <tr>
@@ -97,7 +101,7 @@
 							      入社日
 							    </th>
 							    <td>
-							      <span th:text="${session.employee.hireDate}">2012/11/29</span>
+									<input type="text" name="hireDate" id="dependentsCount" class="form-control" th:field="${employee.hireDate}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -105,7 +109,8 @@
 							      メールアドレス
 							    </th>
 							    <td>
-							      <span>yamada@sample.com</span>
+									<div th:errors="*{mailAddress}" style=color:red></div>
+									<input type="text" name="mailAddress" id="dependentsCount" class="form-control" th:field="${employee.mailAddress}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -113,7 +118,8 @@
 							      郵便番号
 							    </th>
 							    <td>
-							      <span th:text="${session.employee.zipCode}">111-1111</span>
+									<div th:errors="*{zipCode}" style=color:red></div>
+									<input type="text" name="zipCode" id="dependentsCount" class="form-control" th:field="${employee.zipCode}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -121,7 +127,8 @@
 							      住所
 							    </th>
 							    <td>
-							      <span th:text="${session.employee.address}">東京都新宿区1-1-1</span>
+									<div th:errors="*{address}" style=color:red></div>
+									<input type="text" name="address" id="dependentsCount" class="form-control" th:field="${employee.address}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -129,7 +136,8 @@
 							      電話番号
 							    </th>
 							    <td>
-							      <span th:text="${session.employee.telephone}">090-0000-0000</span>
+									<div th:errors="*{telephone}" style=color:red></div>
+									<input type="text" name="telephone" id="dependentsCount" class="form-control" th:field="${employee.telephone}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -137,7 +145,8 @@
 							      給料
 							    </th>
 							    <td>
-									<span th:text="${session.employee.salary}"></span>
+									<div th:errors="*{salary}" style=color:red></div>
+									<input type="text" name="salary" id="dependentsCount" class="form-control" th:field="${employee.salary}">
 							    </td>
 							  </tr>
 							  <tr>
@@ -145,7 +154,8 @@
 							      特性
 							    </th>
 							    <td>
- 							    	<span th:text="${session.employee.characteristics}"></span>
+									<div th:errors="*{characteristics}" style=color:red></div>
+ 							    	<textarea  name="characteristics" class="form-control" th:field="${employee.characteristics}"></textarea>
  							    </td>
 							  </tr>
 							  <tr>
@@ -153,13 +163,16 @@
 							      扶養人数
 							    </th>
 							    <td>
-									<label style="color: red" for="dependentsCount"></label>
-									<span id="dependentsCount"   th:text="${session.employee.dependentCount}">/</span>
+									<label class="control-label" style="color: red" for="dependentsCount"></label>
+									<input type="hidden" name="id" th:value="${employee.id}">
+									<div th:errors="*{dependentCount}" style=color:red></div>
+									<input type="text" name="dependentCount" id="dependentsCount" class="form-control"  th:field="${employee.dependentCount}">
 							    </td>
 							  </tr>
 							</table>
-							<a th:href="@{/employee/toUpdate}">従業員情報を更新する</a>
+							<button type="submit" class="btn btn-primary">更新</button>
 						</fieldset>
+					</form>
 
 					
 <!-- ここから下を編集する必要はありません -->

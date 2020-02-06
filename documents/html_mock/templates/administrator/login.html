@@ -29,11 +29,11 @@
 <!-- ここから上を編集する必要はありません -->
 
 
-					<form method="post" action="../employee/list.html">
+					<form method="post" action="../employee/list.html" >
 						<fieldset>
 							<legend>ログイン</legend>
 							<div class="form-group">
-								<div class="alert alert-danger">
+								<div class="alert alert-danger" th:errors="*{error}" style=color:red>
 			                        <p>メールアドレスまたはパスワードが間違っています</p>
 			                    </div>
 							</div>

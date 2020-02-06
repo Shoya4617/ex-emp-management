@@ -57,4 +57,10 @@ public class AdministratorRepository {
 			return null;
 		}
 	}
+	
+	public void update(Administrator admin) {
+		String sql = "update administrators set name=:name,mail_address=:mailAddress,password=:password where id=:id";
+		SqlParameterSource param = new BeanPropertySqlParameterSource(admin);
+		template.update(sql, param);
+	}
 }
