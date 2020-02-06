@@ -1,13 +1,14 @@
 package jp.co.sample.domain;
 
 /**
+ * 管理者クラスのドメイン.
+ * 
  * @author yamaseki
- * 管理者クラスのドメイン
  */
 public class Administrator {
-	//管理者ID
+	/** ID */
 	private Integer id;
-	//管理者の名前
+	//名前
 	private String name;
 	//管理者のメールアドレス
 	private String mailAddress;

@@ -9,7 +9,7 @@ import jp.co.sample.repository.AdministratorRepository;
 
 /**
  * @author yamaseki
- * 管理者サービスクラス
+ * 管理者用サービスクラス
  */
 @Service
 @Transactional
@@ -18,11 +18,12 @@ public class AdministratorService {
 	@Autowired
 	private AdministratorRepository repository;
 	
-	//管理者情報を挿入するメソッド
+	/*管理者情報を挿入するメソッド*/
 	public void insert(Administrator administrator) {
 		repository.insert(administrator);
 	}
 	
+	/*管理者情報を挿入するメソッド*/
 	public Administrator login(String mailAddress,String password) {
 		Administrator admin = repository.findByMailAddressAndPassword(mailAddress, password);
 		return admin;

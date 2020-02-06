@@ -14,7 +14,7 @@ import jp.co.sample.domain.Employee;
 
 /**
  * @author yamaseki
- * 従業員リポジトリ
+ * 従業員用リポジトリ
  */
 @Repository
 public class EmployeeRepository {
@@ -46,7 +46,7 @@ public class EmployeeRepository {
 	 * @return List<Employee>
 	 */
 	public List<Employee> findAll(){
-		String sql = "select id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count from employees"; 
+		String sql = "select id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count from employees order by id"; 
 		List<Employee>empList = template.query(sql, EMP_ROW_MAPPER);
 		return empList;
 	}
@@ -58,10 +58,10 @@ public class EmployeeRepository {
 	 * @param Integer id
 	 */
 	public Employee load(Integer id) {
-		String sql = "select id,name,image,gende,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count from employees where id=:id";
+		String sql = "select id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count from employees where id=:id";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
-		Employee emp = new Employee();
-		emp = template.queryForObject(sql, param, EMP_ROW_MAPPER);
+//		Employee emp = new Employee();
+		Employee emp = template.queryForObject(sql, param, EMP_ROW_MAPPER);
 		
 		return emp;
 	}
@@ -73,7 +73,7 @@ public class EmployeeRepository {
 	 * @param Employee
 	 */
 	public void update(Employee employee) {
-		String sql = "update employees set dependents_count = :dependentCount";
+		String sql = "update employees set dependents_count = :dependentCount where id = :id";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(employee);
 		template.update(sql, param);
 	}

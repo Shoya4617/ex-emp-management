@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * @author yamaseki
- * 従業員用区クラスドメイン
+ * 従業員用クラスドメイン
  */
 public class Employee {
 	
